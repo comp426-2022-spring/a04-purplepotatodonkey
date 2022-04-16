@@ -91,8 +91,8 @@ if (debug == true) {
 
 
 if (log == true) {
-  const WRITESTREAM = fs.createWriteStream('FILE', { flags: 'a' });
-  app.use(morgan('combined', { stream: WRITESTREAM }));
+  const accessLog = fs.createWriteStream('access.log', { flags: 'a' });
+  app.use(morgan('combined', { stream: accessLog }));
 } 
 
 
