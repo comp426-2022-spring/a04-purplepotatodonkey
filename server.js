@@ -84,14 +84,15 @@ if (debug == true) {
   });
 
   app.get('/app/error', (req, res) => {
+    res.status(500);
     throw new Error('Error test was successful.')
   });
 }
 
 
 if (log == true) {
-  const accessLog = fs.createWriteStream('access.log', { flags: 'a' });
-  app.use(morgan('combined', { stream: accessLog }));
+  const WRITESTREAM = fs.createWriteStream('FILE', { flags: 'a' });
+  app.use(morgan('combined', { stream: WRITESTREAM }));
 } 
 
 
@@ -100,3 +101,4 @@ app.use(function(req, res){
     res.status(404).send('404 NOT FOUND');
     res.type("text/plain");
 });
+
