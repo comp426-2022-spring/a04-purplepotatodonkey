@@ -90,12 +90,13 @@ if (debug == true) {
 
 
 if (log == true) {
-  const WRITESTREAM = fs.createWriteStream('FILE', { flags: 'a' })
-  app.use(morgan('combined', { stream: WRITESTREAM }))
+  const accessLog = fs.createWriteStream('access.log', { flags: 'a' });
+  app.use(morgan('combined', { stream: accessLog }));
 } 
 
 
 // Default response for any other request
 app.use(function(req, res){
-    res.status(404).send('404 NOT FOUND')
+    res.status(404).send('404 NOT FOUND');
+    res.type("text/plain");
 });
