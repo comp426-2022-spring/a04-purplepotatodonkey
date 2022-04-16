@@ -52,27 +52,27 @@ const server = app.listen(HTTP_PORT, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%',HTTP_PORT))
 });
 
-if (args.debug == true) {
-  app.get("/app/log/access", (req, res) => {
-      try {
-          const stmt = db.prepare('SELECT * FROM accesslog').all();
-          res.status(200).json(stmt);
-      } catch {
-          console.error(e);
-      }
+if (debug == true) {
+  app.get('/app/log/access', (req, res) => {
+    try {
+      const select_statement = db.prepare('SELECT * FROM accesslog').all();
+      res.status(200).json(select_statement);
+    } catch {
+      console.error(e);
+    }
   });
 
   app.get('/app/error', (req, res) => {
-      res.status(500);
-      throw new Error('Error test completed successfully.');
+    res.status(500);
+    throw new Error('Error test was successful.')
   });
 }
 
-if (args.log == true) {
-  const morgan = require('morgan');
-  const accessLog = fs.createWriteStream('access.log', { flags: 'a' });
-  app.use(morgan('combined', { stream: accessLog }));
-}
+
+if (log == true) {
+  const WRITESTREAM = fs.createWriteStream('FILE', { flags: 'a' });
+  app.use(morgan('combined', { stream: WRITESTREAM }));
+} 
 
 // Creates sqllite database
 app.use((req, res, next) => {
