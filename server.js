@@ -10,6 +10,7 @@ const argv = (minimist)(process.argv.slice(2));
 
 argv["port"];
 argv["help"]
+argv["log"]
 argv["debug"]
 
 
@@ -63,13 +64,17 @@ app.use((req, res, next) => {
 
 
 if (debug == true) {
-    app.get('/app/log/access', (req, res) => {
+  app.get('/app/log/access', (req, res) => {
+    try {
       const select_statement = db.prepare('SELECT * FROM accesslog').all();
       res.status(200).json(select_statement);
+    } catch {
+      console.error(e);
+    }
   });
 
   app.get('/app/error', (req, res) => {
-    throw new Error('Error test successful.')
+    throw new Error('Error test was successful.')
   });
 }
 
