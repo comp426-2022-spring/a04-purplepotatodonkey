@@ -17,11 +17,21 @@ argv["debug"]
 const HTTP_PORT = argv.port || 5000;
 
 if (argv.help) {
-  console.log("server.js [options]")
-  console.log("--port	Set the port number for the server to listen on. Must be an integer between 1 and 65535.");
-  console.log("--debug If set to `true`, creates endlpoints /app/log/access/ which returns a JSON access log from the database and /app/error which throws an error with the message \"Error test successful.\" Defaults to `false`.");
-  console.log("--log If set to false, no log files are written. Defaults to true. Logs are always written to database.");
-  console.log("--help Return this message and exit.");
+  console.log(`server.js [options]
+    
+  --port	Set the port number for the server to listen on. Must be an integer
+              between 1 and 65535.
+  
+  --debug	If set to true, creates endlpoints /app/log/access/ which returns
+              a JSON access log from the database and /app/error which throws 
+              an error with the message "Error test successful." Defaults to 
+              false.
+  
+  --log	If set to false, no log files are written. Defaults to true.
+              Logs are always written to database.
+  
+  --help	Return this message and exit.
+  `);
   process.exit(0);
 }
 
@@ -57,8 +67,8 @@ app.use((req, res, next) => {
     useragent: req.headers['user-agent']
   }
 
-  const stmt = db.prepare(`INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
-  const insert = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.status, logdata.referer, logdata.useragent)
+  const stmt = db.prepare(`INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+  const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.status, logdata.referer, logdata.useragent)
   next();
 });
 
