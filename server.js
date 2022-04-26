@@ -6,10 +6,10 @@ const fs = require('fs');
 
 
 const app = express()
-const argv = (minimist)(process.argv.slice(2));
+const args = (minimist)(process.argv.slice(2));
 
 
-const HTTP_PORT = argv.port || 5000;
+const HTTP_PORT = args.port || 5000;
 // Start an app server
 const server = app.listen(HTTP_PORT, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%',HTTP_PORT))
