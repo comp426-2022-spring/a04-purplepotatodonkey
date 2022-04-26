@@ -6,6 +6,7 @@
     "morgan": "^1.10.0"
   },
   "scripts": {
+    "test": "node server.js --port=5555",
     "start": "node server.js"
   },
   "name": "a04-purplepotatodonkey",
@@ -18,7 +19,7 @@
     "url": "git+https://github.com/comp426-2022-spring/a04-purplepotatodonkey.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/comp426-2022-spring/a04-purplepotatodonkey/issues"
   },
