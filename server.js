@@ -15,6 +15,11 @@ argv["debug"]
 
 
 const HTTP_PORT = argv.port || 5000;
+// Start an app server
+const server = app.listen(HTTP_PORT, () => {
+  console.log('App listening on port %PORT%'.replace('%PORT%',HTTP_PORT))
+});
+
 
 if (argv.help) {
   console.log(`server.js [options]
@@ -35,25 +40,15 @@ if (argv.help) {
   process.exit(0);
 }
 
-debug = false;
-log = false;
-
-if (argv.debug) {
-  debug = true;
-}
-
-if (argv.log) {
-  log = true;
+if (args.help || args.h) {
+  console.log(help)
+  process.exit(0)
 }
 
 
-// Start an app server
-const server = app.listen(HTTP_PORT, () => {
-    console.log('App listening on port %PORT%'.replace('%PORT%',HTTP_PORT))
-});
 
 
-if (log == true) {
+if (args.log == true) {
   const WRITESTREAM = fs.createWriteStream('FILE', { flags: 'a' });
   app.use(morgan('combined', { stream: WRITESTREAM }));
 } 
@@ -78,21 +73,19 @@ app.use((req, res, next) => {
   next();
 });
 
-if (debug == true) {
-  app.get('/app/log/access', (req, res) => {
-    try {
-      const select_statement = db.prepare('SELECT * FROM accesslog').all();
-      res.status(200).json(select_statement);
-    } catch {
-      console.error(e);
-    }
-  });
+app.get('/app/log/access', (req, res) => {
+  try {
+    const select_statement = db.prepare('SELECT * FROM accesslog').all();
+    res.status(200).json(select_statement);
+  } catch {
+    console.error(e);
+  }
+});
 
-  app.get('/app/error', (req, res) => {
-    res.status(500);
-    throw new Error('Error test was successful.')
-  });
-}
+app.get('/app/error', (req, res) => {
+  res.status(500);
+  throw new Error('Error test was successful.')
+});
 
 // Default response for any other request
 app.use(function(req, res){
