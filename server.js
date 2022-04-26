@@ -48,7 +48,7 @@ if (args.log == true) {
   app.use(morgan('combined', { stream: WRITESTREAM }));
 } 
 
-// Creates sqllite database    what what rick kachoww aspeeeebuzz buzzdnd morty what   ...ffjriposephffsffffdfbig greenfffds    leadelike to climbrboard high score
+// Creates sqllite database  can you mcqueen my lighnint   what what rick kachoww aspeeeebuzz buzzdnd morty what   ...ffjriposephffsffffdfbig greenfffds    leadelike to climbrboard high score
 app.use((req, res, next) => {
   let logdata = {
     remoteaddr: req.ip,
