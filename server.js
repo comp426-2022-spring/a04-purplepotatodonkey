@@ -101,7 +101,7 @@ app.use(function(req, res){
 });
 
 app.get('/app', (req, res) => {
-// Respond with status 200 
+// Respond with status 200   
     res.statusCode = 200;
 // Respond with status message "OK"
     res.statusMessage = 'OK';
