@@ -10,8 +10,8 @@ const argv = (minimist)(process.argv.slice(2));
 
 argv["port"];
 argv["help"]
-argv["log"]
-argv["debug"]
+argv["log"];
+argv["debug"];
 
 
 const HTTP_PORT = argv.port || 5000;
